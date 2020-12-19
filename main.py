@@ -1,11 +1,12 @@
 from flask import Flask
 from flask import render_template, url_for, request
-import urllib.request
-import json
+import urllib.request, json
+import urllib.parse
 import os
 
 app = Flask(__name__)
 api_key = os.environ.get('WEATHER_KEY')
+#  ファイルにするのか
 lat = 35
 lon = 139
 weather_api = f"http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={api_key}"
@@ -21,13 +22,13 @@ def weather():
     req = urllib.request.Request(weather_api)
     with urllib.request.urlopen(req) as res:
         body = res.read()
-
-    return render_template('weather.html', message=body)
-
-# @app.route('/weather/<userlocation>', method=['POST'])
-# def location(userlocation):
-#     data = request.get_json()
-#     return "{}, {}" .format(data["weather"], data["name"])
+        results = json.loads(body)
+        name = results["name"]
+        weather = results["weather"]
+        geo = results["coord"]
+        city_id = results["id"]
+        api_str = f"http://api.openweathermap.org/data/2.5/weather?lat={geo['lat']}&lon={geo['lon']}&appid={api_key}"
+    return render_template('weather.html', message=(name, weather, geo, city_id))
 
     # lat = request.form['lat']
     # lon = request.form['lon']
@@ -39,18 +40,6 @@ def weather():
     # 次はjsonから天気情報と都市名だけを返す 
     # request.form から lat と lon をとる
     # weather_api の lat と lon を受け取った値に変える
-
-@app.route('/weather/info', methods=['GET'])
-def get_weather():
-    data = {
-        "weather": [{"id":803,"main":"Clouds","description":"broken clouds","icon":"04d"}],
-        "id" : "1851632"
-    }
-
-    req = urllib.request.Request(weather_api, json.dumps(data))
-    with urllib.request.urlopen(req) as res:
-        body = res.read()
-
 
 
 if __name__ == "__main__":
