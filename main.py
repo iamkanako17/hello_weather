@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import render_template, url_for, request
+import urllib.request
 import json
 import os
 
@@ -15,22 +16,41 @@ def index():
     return render_template("index.html")
 
 
-@app.route('/weather', methods=['POST', 'GET'])
+@app.route('/weather', methods=['GET'])
 def weather():
-    if request.method == 'POST':
-        response = request.get(weather_api)
-        data = response.json()
-        jsontext = json.dumps(data, indent=4)
-        return render_template('weather.html', message=jsontext)
-        lat = request.form['lat']
-        lon = request.form['lon']
-    # open weather api を叩く
-    # レスポンスを受け取る
-    # 多分 Binary で返ってくるので json にする
-    # message に入れて html上で中身を確認する
-    # 次はjsonから天気情報と都市名だけを返す
+    req = urllib.request.Request(weather_api)
+    with urllib.request.urlopen(req) as res:
+        body = res.read()
+
+    return render_template('weather.html', message=body)
+
+# @app.route('/weather/<userlocation>', method=['POST'])
+# def location(userlocation):
+#     data = request.get_json()
+#     return "{}, {}" .format(data["weather"], data["name"])
+
+    # lat = request.form['lat']
+    # lon = request.form['lon']
+    # open weather api を叩く [完了]
+    # レスポンスを受け取る [完了]
+    # 多分 Binary で返ってくるので json にする [完了]
+    # message に入れて html上で中身を確認する [完了]
+
+    # 次はjsonから天気情報と都市名だけを返す 
     # request.form から lat と lon をとる
     # weather_api の lat と lon を受け取った値に変える
+
+@app.route('/weather/info', methods=['GET'])
+def get_weather():
+    data = {
+        "weather": [{"id":803,"main":"Clouds","description":"broken clouds","icon":"04d"}],
+        "id" : "1851632"
+    }
+
+    req = urllib.request.Request(weather_api, json.dumps(data))
+    with urllib.request.urlopen(req) as res:
+        body = res.read()
+
 
 
 if __name__ == "__main__":
