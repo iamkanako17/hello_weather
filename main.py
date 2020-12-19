@@ -27,11 +27,10 @@ def weather():
         weather = results["weather"]
         geo = results["coord"]
         city_id = results["id"]
+        img = weather[0]['icon']
         api_str = f"http://api.openweathermap.org/data/2.5/weather?lat={geo['lat']}&lon={geo['lon']}&appid={api_key}"
-    return render_template('weather.html', message=(name, weather, geo, city_id))
+    return render_template('weather.html', name=name, wet=weather, geo=geo, id=city_id, img=img)
 
-    # lat = request.form['lat']
-    # lon = request.form['lon']
     # open weather api を叩く [完了]
     # レスポンスを受け取る [完了]
     # 多分 Binary で返ってくるので json にする [完了]
