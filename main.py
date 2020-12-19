@@ -19,6 +19,7 @@ def index():
 
 @app.route('/weather', methods=['GET'])
 def weather():
+    api_key = os.environ.get('WEATHER_KEY')
     req = urllib.request.Request(weather_api)
     with urllib.request.urlopen(req) as res:
         body = res.read()
@@ -28,8 +29,9 @@ def weather():
         geo = results["coord"]
         city_id = results["id"]
         img = weather[0]['icon']
+        widget = weather[0]['id']
         api_str = f"http://api.openweathermap.org/data/2.5/weather?lat={geo['lat']}&lon={geo['lon']}&appid={api_key}"
-    return render_template('weather.html', name=name, wet=weather, geo=geo, id=city_id, img=img)
+    return render_template('weather.html', name=name, wet=weather, geo=geo, id=city_id, img=img, key=api_key, wid=widget)
 
     # open weather api を叩く [完了]
     # レスポンスを受け取る [完了]
