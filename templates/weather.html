@@ -1,15 +1,14 @@
-{% extends "layout.html" %}
-{% block content %}
-  <h1>{{ data.location_name }}の天気</h1>
-  
-  <h4>天候：{{ data.weather}}</h4>
+{% extends "layout.html" %} {% block content %}
+<h1>{{ data.location_name }}の天気</h1>
 
-  <p>今の気温: {{ data.current_temperature }}℃</p>
-  <p>最高気温: {{ data.max_temperature }}℃</p>
-  <p>最低気温: {{ data.min_temperature }}℃</p>
-  <p>
-    <img src="http://openweathermap.org/img/wn/{{ data.weather_img }}@2x.png"></img>
-  </p>
- 
-   
+<h4>天候：{{ data.weather}}</h4>
+
+<p>今の気温: {{ data.current_temperature }}℃</p>
+<p>最高気温: {{ data.max_temperature }}℃</p>
+<p>最低気温: {{ data.min_temperature }}℃</p>
+<p>
+  <img src="http://openweathermap.org/img/wn/{{ data.weather_img }}@2x.png"></img>
+</p>
+<p>{{ results }}</p>
+
 {% endblock %}

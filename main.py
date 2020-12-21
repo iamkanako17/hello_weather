@@ -9,15 +9,10 @@ app = Flask(__name__)
 api_key = os.environ.get('WEATHER_KEY')
 lat = 35.681
 lon = 139.686
-weather_api = f"http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={api_key}&lang=ja&units=metric&exclude=hourly"
+weather_api = f"http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={api_key}&lang=ja&units=metric"
 
 
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-
-@app.route('/weather', methods=['GET'])
+@app.route('/', methods=['GET'])
 def weather():
     api_key = os.environ.get('WEATHER_KEY')
     with urllib.request.urlopen(weather_api) as res:
@@ -32,7 +27,8 @@ def weather():
             'weather': results['weather'][0]['description'],
             'weather_img': results['weather'][0]['icon'],
         }
-        api_url = f"http://api.openweathermap.org/data/2.5/weather?lat=data.geo['lat']&lon=data.geo['lon']&appid={api_key}&lang=ja"
+
+        api_url = f"http://api.openweathermap.org/data/2.5/weather?lat=data.geo['lat']&lon=data.geo['lon']&appid={api_key}&lang=ja&units=metric"
     return render_template('weather.html', data=data)
 
 
