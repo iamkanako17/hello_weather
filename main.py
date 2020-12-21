@@ -1,46 +1,34 @@
 from flask import Flask
-from flask import render_template, url_for, request
-import urllib.request, json
+from flask import render_template
+import urllib.request
+import json
 import urllib.parse
 import os
 
 app = Flask(__name__)
 api_key = os.environ.get('WEATHER_KEY')
-#  ファイルにするのか
-lat = 35
-lon = 139
-weather_api = f"http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={api_key}"
+lat = 35.681
+lon = 139.686
+weather_api = f"http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={api_key}&lang=ja&units=metric&exclude=hourly"
 
 
 @app.route('/', methods=['GET'])
-def index():
-    return render_template("index.html")
-
-
-@app.route('/weather', methods=['GET'])
 def weather():
     api_key = os.environ.get('WEATHER_KEY')
-    req = urllib.request.Request(weather_api)
-    with urllib.request.urlopen(req) as res:
+    with urllib.request.urlopen(weather_api) as res:
         body = res.read()
         results = json.loads(body)
-        name = results["name"]
-        weather = results["weather"]
-        geo = results["coord"]
-        city_id = results["id"]
-        img = weather[0]['icon']
-        widget = weather[0]['id']
-        api_str = f"http://api.openweathermap.org/data/2.5/weather?lat={geo['lat']}&lon={geo['lon']}&appid={api_key}"
-    return render_template('weather.html', name=name, wet=weather, geo=geo, id=city_id, img=img, key=api_key, wid=widget)
-
-    # open weather api を叩く [完了]
-    # レスポンスを受け取る [完了]
-    # 多分 Binary で返ってくるので json にする [完了]
-    # message に入れて html上で中身を確認する [完了]
-
-    # 次はjsonから天気情報と都市名だけを返す 
-    # request.form から lat と lon をとる
-    # weather_api の lat と lon を受け取った値に変える
+        data = {
+            'location_name': results['name'],
+            'daily_temperature': results['main']['temp'],
+            'min_temperature': results['main']['temp_min'],
+            'max_temperature': results['main']['temp_max'],
+            'geo': results['coord'],
+            'weather': results['weather'][0]['description'],
+            'weather_img': results['weather'][0]['icon'],
+        }
+        api_url = f"http://api.openweathermap.org/data/2.5/weather?lat=data.geo['lat']&lon=data.geo['lon']&appid={api_key}&lang=ja"
+    return render_template('weather.html', data=data)
 
 
 if __name__ == "__main__":
