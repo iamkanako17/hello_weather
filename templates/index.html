@@ -1,7 +1,12 @@
-{% extends "layout.html" %}
-{% block content %}
-  <h1>Hello weather</h1>
-  
-  <script type="text/javascript" src="../static/geo.js"></script>
-  <p id="location"></p>
+{% extends "layout.html" %} {% block content %}
+<h1>Hello weather</h1>
+
+<a
+  href="/weather"
+  class="btn btn-primary btn-lg active"
+  role="button"
+  aria-pressed="true"
+  >天気を見る</a
+>
+
 {% endblock %}

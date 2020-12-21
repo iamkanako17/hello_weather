@@ -1,13 +1,15 @@
 {% extends "layout.html" %}
 {% block content %}
-  <h1>今の天気</h1>
-  <p>location: {{ name }}</p>
+  <h1>{{ data.location_name }}の天気</h1>
+  
+  <h4>天候：{{ data.weather}}</h4>
+
+  <p>今の気温: {{ data.current_temperature }}℃</p>
+  <p>最高気温: {{ data.max_temperature }}℃</p>
+  <p>最低気温: {{ data.min_temperature }}℃</p>
   <p>
-    <img src="http://openweathermap.org/img/wn/{{ img }}@2x.png"></img>
+    <img src="http://openweathermap.org/img/wn/{{ data.weather_img }}@2x.png"></img>
   </p>
  
    
-  <p>---以下は公式のsampleのパラメータを取得したJsonデータに変換して表示しています。---</p>
-  <div id="openweathermap-widget-11"></div>
-  <script src='//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/d3.min.js'></script><script>window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];  window.myWidgetParam.push({id: 11, cityid: '{{ id }}', appid: '{{ key }}',units: 'metric',containerid: 'openweathermap-widget-11',  });  (function() {var script = document.createElement('script');script.async = true;script.charset = "utf-8";script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(script, s);  })();</script>
 {% endblock %}

@@ -12,7 +12,12 @@ lon = 139.686
 weather_api = f"http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={api_key}&lang=ja&units=metric&exclude=hourly"
 
 
-@app.route('/', methods=['GET'])
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+
+@app.route('/weather', methods=['GET'])
 def weather():
     api_key = os.environ.get('WEATHER_KEY')
     with urllib.request.urlopen(weather_api) as res:
@@ -20,7 +25,7 @@ def weather():
         results = json.loads(body)
         data = {
             'location_name': results['name'],
-            'daily_temperature': results['main']['temp'],
+            'current_temperature': results['main']['temp'],
             'min_temperature': results['main']['temp_min'],
             'max_temperature': results['main']['temp_max'],
             'geo': results['coord'],
