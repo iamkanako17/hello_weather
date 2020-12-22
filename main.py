@@ -22,9 +22,6 @@ def weather():
         time = datetime.datetime.fromtimestamp
         data = {
             'timezone': results['timezone'],
-            'lat': results['lat'],
-            'lon': results['lon'],
-            'lon': results['lon'],
             'now_time': time(results['current']['dt']),
             'now_temperature': results['current']['temp'],
             'now_weather': results['current']['weather'][0]['description'],
@@ -53,8 +50,6 @@ def weather():
             # [TODO]: dictの記述量が多いので、時間ごとの天気情報を別途for文にするかどうか。
 
         }
-
-        api_url = f"https://api.openweathermap.org/data/2.5/onecall?lat=data.lat&lon=data.lon&exclude=daily&appid={api_key}&units=metric&lang=ja"
     return render_template('weather.html', data=data)
 
 
