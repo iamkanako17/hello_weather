@@ -6,6 +6,8 @@
     <h5>時刻：{{ data.now_time }}</h5>
     <h5>天候：{{ data.now_weather }}</h5>
     <h5>只今の気温: {{ data.now_temperature }}℃</h5>
+    <h5>只今の湿度: {{ data.now_humidity }}%</h5>
+    <h5>只今の風速: {{ data.now_wind }}m/秒</h5>
 
     <p>
         <img src="http://openweathermap.org/img/wn/{{ data.now_weather_img }}@2x.png"></img>
@@ -16,6 +18,8 @@
     <p>{{ data.one_hour_later_time }} 気温: {{ data.one_hour_later_temp }}℃</p>
     <p>天気：{{data.one_hour_later_description }}</p>
     <p>降水確率：{{ data.probability_of_rain_1}} %</p>
+    <p>湿度：{{ data.one_hour_later_humidity}}%</p>
+    <p>風速：{{ data.one_hour_later_wind}}m/秒</p>
     <p>
         <img src="http://openweathermap.org/img/wn/{{ data.one_hour_later_image }}@2x.png"></img>
     </p>
@@ -25,6 +29,8 @@
     <p>{{ data.two_hour_later_time }} 気温: {{ data.two_hour_later_temp }}℃</p>
     <p>天気：{{data.two_hour_later_description }}</p>
     <p>降水確率：{{ data.probability_of_rain_2}} %</p>
+    <p>湿度：{{ data.two_hour_later_humidity}}%</p>
+    <p>風速：{{ data.one_hour_later_wind}}m/秒</p>
     <p>
         <img src="http://openweathermap.org/img/wn/{{ data.two_hour_later_image }}@2x.png"></img>
     </p>
@@ -34,6 +40,8 @@
     <p>{{ data.three_hour_later_time }} 気温: {{ data.three_hour_later_temp }}℃</p>
     <p>天気：{{data.three_hour_later_description }}</p>
     <p>降水確率：{{ data.probability_of_rain_3}} %</p>
+    <p>湿度：{{ data.three_hour_later_humidity}}%</p>
+    <p>風速：{{ data.one_hour_later_wind}}m/秒</p>
     <p>
         <img src="http://openweathermap.org/img/wn/{{ data.three_hour_later_image }}@2x.png"></img>
     </p>
@@ -43,6 +51,8 @@
     <p>{{ data.four_hour_later_time }} 気温: {{ data.four_hour_later_temp }}℃</p>
     <p>天気：{{data.four_hour_later_description }}</p>
     <p>降水確率：{{ data.probability_of_rain_4}} %</p>
+    <p>湿度：{{ data.four_hour_later_humidity}}%</p>
+    <p>風速：{{ data.one_hour_later_wind}}m/秒</p>
     <p>
         <img src="http://openweathermap.org/img/wn/{{ data.four_hour_later_image }}@2x.png"></img>
     </p>

@@ -14,6 +14,9 @@ lon = 139.686
 weather_url = f"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude=daily&appid={api_key}&units=metric&lang=ja"
 
 
+# [TODO] : geo.jsを作成して、Flaskサーバーにsuccess()をサーバーにPOST。
+# [TODO] : weather関数をroute('/weather')にして、methods=['POST']にする。
+# [TODO] : def index()も復活させて、index.htmlのみ表示させる。
 @app.route('/', methods=['GET'])
 def weather():
     with urllib.request.urlopen(weather_url) as res:
@@ -25,6 +28,8 @@ def weather():
             'now_time': time(results['current']['dt']),
             'now_temperature': results['current']['temp'],
             'now_weather': results['current']['weather'][0]['description'],
+            'now_humidity': results['current']['humidity'],
+            'now_wind': results['current']['wind_speed'],
             'now_weather_img': results['current']['weather'][0]['icon'],
             'one_hour_later_time': time(results['hourly'][1]['dt']),
             'two_hour_later_time': time(results['hourly'][2]['dt']),
@@ -46,9 +51,14 @@ def weather():
             'probability_of_rain_2': results['hourly'][2]['pop'],
             'probability_of_rain_3': results['hourly'][3]['pop'],
             'probability_of_rain_4': results['hourly'][4]['pop'],
-            # [TODO]: １時間ごとの天気情報を文字ではなく、アイコンの表示にするかどうか。
-            # [TODO]: dictの記述量が多いので、時間ごとの天気情報を別途for文にするかどうか。
-
+            'one_hour_later_humidity': results['hourly'][1]['humidity'],
+            'two_hour_later_humidity': results['hourly'][2]['humidity'],
+            'three_hour_later_humidity': results['hourly'][3]['humidity'],
+            'four_hour_later_humidity': results['hourly'][4]['humidity'],
+            'one_hour_later_wind': results['hourly'][1]['wind_speed'],
+            'two_hour_later_wind': results['hourly'][2]['wind_speed'],
+            'three_hour_later_wind': results['hourly'][3]['wind_speed'],
+            'four_hour_later_wind': results['hourly'][4]['wind_speed']
         }
     return render_template('weather.html', data=data)
 
