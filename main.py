@@ -37,7 +37,15 @@ def weather():
             'two_hour_later_temp': results['hourly'][2]['temp'],
             'three_hour_later_temp': results['hourly'][3]['temp'],
             'four_hour_later_temp': results['hourly'][4]['temp'],
+            'one_hour_later_description': results['hourly'][1]['weather'][0]['description'],
+            'two_hour_later_description': results['hourly'][2]['weather'][0]['description'],
+            'three_hour_later_description': results['hourly'][3]['weather'][0]['description'],
+            'four_hour_later_description': results['hourly'][4]['weather'][0]['description']
+            # [TODO]: １時間ごとの天気情報を文字ではなく、アイコンの表示にするかどうか。
+            # [TODO]: dictの記述量が多いので、時間ごとの天気情報を別途for文にするかどうか。
+
         }
+
         api_url = f"https://api.openweathermap.org/data/2.5/onecall?lat=data.lat&lon=data.lon&exclude=daily&appid={api_key}&units=metric&lang=ja"
     return render_template('weather.html', data=data, results=results)
 

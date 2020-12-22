@@ -6,10 +6,11 @@
 <h5>時刻：{{ data.now_time }}</h5>
 
 <p>只今の気温: {{ data.now_temperature }}℃</p>
-<p>{{ data.one_hour_later_time }}: {{ data.one_hour_later_temp }}℃</p>
-<p>{{ data.two_hour_later_time}}: {{ data.two_hour_later_temp }}℃</p>
-<p>{{ data.three_hour_later_time}}: {{ data.three_hour_later_temp }}℃</p>
-<p>{{ data.four_hour_later_time}}: {{ data.four_hour_later_temp }}℃</p>
+<p>{{ data.one_hour_later_time }}: {{ data.one_hour_later_temp }}℃  天気：{{data.one_hour_later_description }}</p>
+<p>{{ data.two_hour_later_time }}: {{ data.two_hour_later_temp }}℃ 天気: {{ data.two_hour_later_description }}</p>
+<p>{{ data.three_hour_later_time }}: {{ data.three_hour_later_temp }}℃ 天気: {{ data.three_hour_later_description}}</p>
+<p>{{ data.four_hour_later_time }}: {{ data.four_hour_later_temp }}℃ 天気: {{ data.four_hour_later_description}}</p>
+
 
 <p>
   <img src="http://openweathermap.org/img/wn/{{ data.now_weather_img }}@2x.png"></img>
