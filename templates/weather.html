@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>{{ data.timezone }}</h1>
+
+<h4>天候：{{ data.now_weather }}</h4>
+<h5>時刻：{{ data.now_time }}</h5>
+
+<p>只今の気温: {{ data.now_temperature }}℃</p>
+<p>{{ data.one_hour_later_time }}: {{ data.one_hour_later_temp }}℃</p>
+<p>{{ data.two_hour_later_time}}: {{ data.two_hour_later_temp }}℃</p>
+<p>{{ data.three_hour_later_time}}: {{ data.three_hour_later_temp }}℃</p>
+<p>{{ data.four_hour_later_time}}: {{ data.four_hour_later_temp }}℃</p>
+
+<p>
+  <img src="http://openweathermap.org/img/wn/{{ data.now_weather_img }}@2x.png"></img>
+</p>
+<p>{{ results }}</p>
+
+{% endblock %}
