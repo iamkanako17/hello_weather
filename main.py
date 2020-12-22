@@ -40,7 +40,15 @@ def weather():
             'one_hour_later_description': results['hourly'][1]['weather'][0]['description'],
             'two_hour_later_description': results['hourly'][2]['weather'][0]['description'],
             'three_hour_later_description': results['hourly'][3]['weather'][0]['description'],
-            'four_hour_later_description': results['hourly'][4]['weather'][0]['description']
+            'four_hour_later_description': results['hourly'][4]['weather'][0]['description'],
+            'one_hour_later_image': results['hourly'][4]['weather'][0]['icon'],
+            'two_hour_later_image': results['hourly'][4]['weather'][0]['icon'],
+            'three_hour_later_image': results['hourly'][4]['weather'][0]['icon'],
+            'four_hour_later_image': results['hourly'][4]['weather'][0]['icon'],
+            'probability_of_rain_1': results['hourly'][1]['pop'],
+            'probability_of_rain_2': results['hourly'][2]['pop'],
+            'probability_of_rain_3': results['hourly'][3]['pop'],
+            'probability_of_rain_4': results['hourly'][4]['pop'],
             # [TODO]: １時間ごとの天気情報を文字ではなく、アイコンの表示にするかどうか。
             # [TODO]: dictの記述量が多いので、時間ごとの天気情報を別途for文にするかどうか。
 
