@@ -35,7 +35,3 @@ api_key = os.environ.get('****')
 - Flask 1.1.2
 - Python 3.8.5
 - BootsStrap 4.5.0
-
-```
-
-```
