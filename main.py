@@ -6,6 +6,7 @@ import urllib.parse
 import os
 import datetime
 
+
 app = Flask(__name__)
 api_key = os.environ.get('WEATHER_KEY')
 lat = 35.681
