@@ -47,7 +47,7 @@ def weather():
         }
 
         api_url = f"https://api.openweathermap.org/data/2.5/onecall?lat=data.lat&lon=data.lon&exclude=daily&appid={api_key}&units=metric&lang=ja"
-    return render_template('weather.html', data=data, results=results)
+    return render_template('weather.html', data=data)
 
 
 if __name__ == "__main__":
