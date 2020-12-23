@@ -1,15 +1,20 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<h3>Hello, Weather!</h3>
+<h3>Now loading...</h3>
 
-<button onclick="getPosition()">現在地を取得</button>
+<!-- # ボタンを押したら、勝手に現在地を取得して、勝手に画面が遷移する。 -->
+
+<button onclick="getPosition()">現在地取得</button>
 <form  action="/weather" method="POST">
-    <p id="lat" name="lat"></p>
-    <p id="lon" name="lon"></p>
-    <input type="form" id="lat" name="lat">
-    <input type="form" id="lon" name="lon">
-    <input type="submit" value="現在地を送信する">
+    <input type="hidden" id="lat" name="latitude">
+    <input type="hidden" id="lon" name="longitude">
+    <input type="submit" value="天気を見る">
 </form>
 <script type=text/javascript src="{{url_for('static', filename='geo.js') }}"></script>
 {% endblock%}
+
+<!-- inputのID不要、name属性を使用して、取得。 -->
+<!-- valueを書き換えて送信。 -->
+<!-- <p id="lat" name="lat"></p>
+<p id="lon" name="lon"></p> -->

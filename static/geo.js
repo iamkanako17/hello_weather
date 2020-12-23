@@ -1,11 +1,15 @@
-function getPosition() {
+window.onload = function getPosition() {
     navigator.geolocation.getCurrentPosition(success);
 }
 
-function success(position) {
-    var lat = position.coords.latitude;
-    var lon = position.coords.longitude;
+function success(pos) {
+    var lat = pos.coords.latitude;
+    var lon = pos.coords.longitude;
     
     document.getElementById("lat").innerHTML = lat;
     document.getElementById("lon").innerHTML = lon;
+}
+
+function reload() {
+    
 }
