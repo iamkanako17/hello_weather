@@ -15,9 +15,6 @@ api_key = os.environ.get('WEATHER_KEY')
 @app.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
-    # [TODO] : geo.jsを作成して、Flaskサーバーにsuccess()をサーバーにPOST。
-    # [TODO] : weather関数をroute('/weather')にして、methods=['POST']にする。
-    # [TODO] : def index()も復活させて、index.htmlのみ表示させる。
 
 
 @app.route('/weather', methods=['GET', 'POST'])
