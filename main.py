@@ -10,25 +10,21 @@ import datetime
 
 app = Flask(__name__)
 api_key = os.environ.get('WEATHER_KEY')
-lat = 35.681
-lon = 139.686
-weather_url = f"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude=daily&appid={api_key}&units=metric&lang=ja"
 
 
 @app.route('/', methods=['GET'])
 def index():
-    lat = request.args.getlist('lat')
-    lon = request.args.getlist('lon')
-    print(lat)
-    print(lon)
+    return render_template('index.html')
     # [TODO] : geo.jsを作成して、Flaskサーバーにsuccess()をサーバーにPOST。
     # [TODO] : weather関数をroute('/weather')にして、methods=['POST']にする。
     # [TODO] : def index()も復活させて、index.htmlのみ表示させる。
-    return render_template('index.html')
 
 
-@app.route('/weather', methods=['GET'])
+@app.route('/weather', methods=['GET', 'POST'])
 def weather():
+    lat = request.form['lat']
+    lon = request.form['lon']
+    weather_url = f"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude=daily&appid={api_key}&units=metric&lang=ja"
     with urllib.request.urlopen(weather_url) as res:
         body = res.read()
         results = json.loads(body)
@@ -70,7 +66,7 @@ def weather():
             'three_hour_later_wind': results['hourly'][3]['wind_speed'],
             'four_hour_later_wind': results['hourly'][4]['wind_speed']
         }
-    return render_template('weather.html', data=data)
+    return render_template('weather.html', data=data, results=results)
 
 
 if __name__ == "__main__":
