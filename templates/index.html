@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h3>Hello, Weather!</h3>
+<button onclick="getPosition()">現在地を取得</button>
+
+<form  action="/" method="POST">
+    <input type="hidden" id="lat" name="lat"></p>
+    <input type="hidden" id="lon" name="lon"></p>
+</form>
+<script type=text/javascript src="{{url_for('static', filename='geo.js') }}"></script>
+{% endblock%}

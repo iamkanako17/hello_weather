@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import render_template
+from flask import request
 import urllib.request
 import json
 import urllib.parse
@@ -14,10 +15,19 @@ lon = 139.686
 weather_url = f"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude=daily&appid={api_key}&units=metric&lang=ja"
 
 
-# [TODO] : geo.jsを作成して、Flaskサーバーにsuccess()をサーバーにPOST。
-# [TODO] : weather関数をroute('/weather')にして、methods=['POST']にする。
-# [TODO] : def index()も復活させて、index.htmlのみ表示させる。
 @app.route('/', methods=['GET'])
+def index():
+    lat = request.args.getlist('lat')
+    lon = request.args.getlist('lon')
+    print(lat)
+    print(lon)
+    # [TODO] : geo.jsを作成して、Flaskサーバーにsuccess()をサーバーにPOST。
+    # [TODO] : weather関数をroute('/weather')にして、methods=['POST']にする。
+    # [TODO] : def index()も復活させて、index.htmlのみ表示させる。
+    return render_template('index.html')
+
+
+@app.route('/weather', methods=['GET'])
 def weather():
     with urllib.request.urlopen(weather_url) as res:
         body = res.read()
@@ -43,9 +53,9 @@ def weather():
             'two_hour_later_description': results['hourly'][2]['weather'][0]['description'],
             'three_hour_later_description': results['hourly'][3]['weather'][0]['description'],
             'four_hour_later_description': results['hourly'][4]['weather'][0]['description'],
-            'one_hour_later_image': results['hourly'][4]['weather'][0]['icon'],
-            'two_hour_later_image': results['hourly'][4]['weather'][0]['icon'],
-            'three_hour_later_image': results['hourly'][4]['weather'][0]['icon'],
+            'one_hour_later_image': results['hourly'][1]['weather'][0]['icon'],
+            'two_hour_later_image': results['hourly'][2]['weather'][0]['icon'],
+            'three_hour_later_image': results['hourly'][3]['weather'][0]['icon'],
             'four_hour_later_image': results['hourly'][4]['weather'][0]['icon'],
             'probability_of_rain_1': results['hourly'][1]['pop'],
             'probability_of_rain_2': results['hourly'][2]['pop'],
