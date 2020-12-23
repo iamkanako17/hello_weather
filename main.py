@@ -63,7 +63,7 @@ def weather():
             'three_hour_later_wind': results['hourly'][3]['wind_speed'],
             'four_hour_later_wind': results['hourly'][4]['wind_speed']
         }
-    return render_template('weather.html', data=data, results=results)
+    return render_template('weather.html', data=data)
 
 
 if __name__ == "__main__":
