@@ -7,6 +7,6 @@ window.onload = function getPosition() {
         
         document.getElementById("lat").value = lat;
         document.getElementById("lon").value = lon;
-        document.forms["send"].submit("/weather");
+        document.forms["send"].submit();
     }
 }
