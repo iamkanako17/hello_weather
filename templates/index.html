@@ -1,11 +1,9 @@
 {% extends "layout.html" %}
 {% block content %}
 
+<!-- [TODO]　ロードが完了したら表示が変わるようにする。-->
 <h3>Now loading...</h3>
 
-<!-- # ボタンを押したら、勝手に現在地を取得して、勝手に画面が遷移する。 -->
-
-<button onclick="getPosition()">現在地取得</button>
 <form  action="/weather" method="POST">
     <input type="hidden" id="lat" name="latitude">
     <input type="hidden" id="lon" name="longitude">
@@ -14,7 +12,3 @@
 <script type=text/javascript src="{{url_for('static', filename='geo.js') }}"></script>
 {% endblock%}
 
-<!-- inputのID不要、name属性を使用して、取得。 -->
-<!-- valueを書き換えて送信。 -->
-<!-- <p id="lat" name="lat"></p>
-<p id="lon" name="lon"></p> -->
