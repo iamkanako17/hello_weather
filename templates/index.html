@@ -1,13 +1,11 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<!-- [TODO]　ロードが完了したら表示が変わるようにする。-->
 <h3>Now loading...</h3>
 
-<form  action="/weather" method="POST">
+<form name="send" id="send" action="/weather" method="POST">
     <input type="hidden" id="lat" name="latitude">
     <input type="hidden" id="lon" name="longitude">
-    <input type="submit" value="天気を見る">
 </form>
 <script type=text/javascript src="{{url_for('static', filename='geo.js') }}"></script>
 {% endblock%}

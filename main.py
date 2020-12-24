@@ -69,10 +69,10 @@ def weather():
         e = e
         message = "天気情報取得中にエラーが発生しました。"
         return render_template('error.html', e=e, message=message)
-    except Exception as er:
-        er = er
-        error_msg = "何らかのエラーが起きました。"
-        return render_template('else_error.html', error_msg=error_msg, er=er)
+    except Exception as e:
+        e = e
+        message = "何らかのエラーが起きました。"
+        return render_template('error.html', message=message, e=e)
 
 
 if __name__ == "__main__":
