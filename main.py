@@ -26,19 +26,18 @@ def weather():
         with urllib.request.urlopen(weather_url) as res:
             body = res.read()
             results = json.loads(body)
-            time = datetime.datetime.fromtimestamp
             data = {
                 'timezone': results['timezone'],
-                'now_time': time(results['current']['dt']),
+                'now_time': datetime.datetime.fromtimestamp(results['current']['dt']),
                 'now_temperature': results['current']['temp'],
                 'now_weather': results['current']['weather'][0]['description'],
                 'now_humidity': results['current']['humidity'],
                 'now_wind': results['current']['wind_speed'],
                 'now_weather_img': results['current']['weather'][0]['icon'],
-                'one_hour_later_time': time(results['hourly'][1]['dt']),
-                'two_hour_later_time': time(results['hourly'][2]['dt']),
-                'three_hour_later_time': time(results['hourly'][3]['dt']),
-                'four_hour_later_time': time(results['hourly'][4]['dt']),
+                'one_hour_later_time': datetime.datetime.fromtimestamp(results['hourly'][1]['dt']),
+                'two_hour_later_time': datetime.datetime.fromtimestamp(results['hourly'][2]['dt']),
+                'three_hour_later_time': datetime.datetime.fromtimestamp(results['hourly'][3]['dt']),
+                'four_hour_later_time': datetime.datetime.fromtimestamp(results['hourly'][4]['dt']),
                 'one_hour_later_temp': results['hourly'][1]['temp'],
                 'two_hour_later_temp': results['hourly'][2]['temp'],
                 'three_hour_later_temp': results['hourly'][3]['temp'],
