@@ -17,7 +17,7 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/weather', methods=['GET', 'POST'])
+@app.route('/weather', methods=['POST'])
 def weather():
     lat = request.form.get('latitude')
     lon = request.form.get('longitude')
