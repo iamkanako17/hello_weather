@@ -66,13 +66,13 @@ def weather():
             }
         return render_template('weather.html', data=data)
     except urllib.error.HTTPError as e:
-        e = e
         message = "天気情報取得中にエラーが発生しました。"
-        return render_template('error.html', e=e, message=message)
+        print("e")
+        return render_template('error.html', message=message)
     except Exception as e:
-        e = e
         message = "何らかのエラーが起きました。"
-        return render_template('error.html', message=message, e=e)
+        print("e")
+        return render_template('error.html', message=message)
 
 
 if __name__ == "__main__":
