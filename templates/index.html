@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h3>Now loading...</h3>
+
+<form name="send" action="/weather" method="POST">
+    <input type="hidden" id="lat" name="latitude">
+    <input type="hidden" id="lon" name="longitude">
+</form>
+<script type=text/javascript src="{{url_for('static', filename='geo.js') }}"></script>
+{% endblock%}
+
