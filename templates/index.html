@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<h3>Now loading...</h3>
+<h3 id="status"></h3>
 
 <form name="send" action="/weather" method="POST">
     <input type="hidden" id="lat" name="latitude">
