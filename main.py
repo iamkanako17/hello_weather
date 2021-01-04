@@ -84,7 +84,7 @@ def weather():
                 'seven_days_after_temperature': results['daily'][7]['temp']['day'],
                 'seven_days_after_weather_img': results['daily'][7]['weather'][0]['icon'],
             }
-        return render_template('weather.html', data=data, results=results)
+        return render_template('weather.html', data=data)
     except urllib.error.HTTPError as e:
         message = "天気情報取得中にエラーが発生しました。"
         print(e)
