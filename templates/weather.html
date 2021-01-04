@@ -58,5 +58,64 @@
     </p>
 </div>
 
-{% endblock %}
+<div class="daily">
+    <div class="tomorrow">
+        <h3>週間天気</h3>
+        <p>{{ data.tomorrow_time }}</p>
+        <p>日中気温：{{ data.tomorrow_temperature }}℃</p>
+        <p>
+            <img src="http://openweathermap.org/img/wn/{{ data.tomorrow_weather_img }}@2x.png"></img>
+        </p>
+    </div>
 
+    <div class="day_after_tomorrow">
+        <p>{{ data.day_after_tomorrow_time }}</p>
+        <p>日中気温：{{ data.day_after_tomorrow_temperature }}℃</p>
+        <p>
+            <img src="http://openweathermap.org/img/wn/{{ data.day_after_tomorrow_weather_img }}@2x.png"></img>
+        </p>
+    </div>
+
+    <div class="three_days_after">
+        <p>{{ data.three_days_after_time }}</p>
+        <p>日中気温：{{ data.three_days_after_temperature }}℃</p>
+        <p>
+            <img src="http://openweathermap.org/img/wn/{{ data.three_days_after_weather_img }}@2x.png"></img>
+        </p>
+    </div>
+
+    <div class="four_days_after">
+        <p>{{ data.four_days_after_time }}</p>
+        <p>日中気温：{{ data.four_days_after_temperature }}℃</p>
+        <p>
+            <img src="http://openweathermap.org/img/wn/{{ data.four_days_after_weather_img }}@2x.png"></img>
+        </p>
+    </div>
+
+    <div class="five_days_after">
+        <p>{{ data.five_days_after_time }}</p>
+        <p>日中気温：{{ data.five_days_after_temperature }}℃</p>
+        <p>
+            <img src="http://openweathermap.org/img/wn/{{ data.five_days_after_weather_img }}@2x.png"></img>
+        </p>
+    </div>
+
+    <div class="six_days_after">
+        <p>{{ data.six_days_after_time }}</p>
+        <p>日中気温：{{ data.six_days_after_temperature }}℃</p>
+        <p>
+            <img src="http://openweathermap.org/img/wn/{{ data.six_days_after_weather_img }}@2x.png"></img>
+        </p>
+    </div>
+
+    <div class="seven_days_after">
+        <p>{{ data.seven_days_after_time }}</p>
+        <p>日中気温：{{ data.seven_days_after_temperature }}℃</p>
+        <p>
+            <img src="http://openweathermap.org/img/wn/{{ data.seven_days_after_weather_img }}@2x.png"></img>
+        </p>
+    </div>
+</div>
+
+<p>{{ results }}</p>
+{% endblock %}

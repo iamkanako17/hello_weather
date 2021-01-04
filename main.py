@@ -21,7 +21,7 @@ def index():
 def weather():
     lat = request.form.get('latitude')
     lon = request.form.get('longitude')
-    weather_url = f"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude=daily&appid={api_key}&units=metric&lang=ja"
+    weather_url = f"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude=minutely&appid={api_key}&units=metric&lang=ja"
     try:
         with urllib.request.urlopen(weather_url) as res:
             body = res.read()
@@ -61,9 +61,30 @@ def weather():
                 'one_hour_later_wind': results['hourly'][1]['wind_speed'],
                 'two_hour_later_wind': results['hourly'][2]['wind_speed'],
                 'three_hour_later_wind': results['hourly'][3]['wind_speed'],
-                'four_hour_later_wind': results['hourly'][4]['wind_speed']
+                'four_hour_later_wind': results['hourly'][4]['wind_speed'],
+                'tomorrow_time': datetime.datetime.fromtimestamp(results['daily'][1]['dt']),
+                'tomorrow_temperature': results['daily'][1]['temp']['day'],
+                'tomorrow_weather_img': results['daily'][1]['weather'][0]['icon'],
+                'day_after_tomorrow_time': datetime.datetime.fromtimestamp(results['daily'][2]['dt']),
+                'day_after_tomorrow_temperature': results['daily'][2]['temp']['day'],
+                'day_after_tomorrow_weather_img': results['daily'][2]['weather'][0]['icon'],
+                'three_days_after_time': datetime.datetime.fromtimestamp(results['daily'][3]['dt']),
+                'three_days_after_temperature': results['daily'][3]['temp']['day'],
+                'three_days_after_weather_img': results['daily'][3]['weather'][0]['icon'],
+                'four_days_after_time': datetime.datetime.fromtimestamp(results['daily'][4]['dt']),
+                'four_days_after_temperature': results['daily'][4]['temp']['day'],
+                'four_days_after_weather_img': results['daily'][4]['weather'][0]['icon'],
+                'five_days_after_time': datetime.datetime.fromtimestamp(results['daily'][5]['dt']),
+                'five_days_after_temperature': results['daily'][5]['temp']['day'],
+                'five_days_after_weather_img': results['daily'][5]['weather'][0]['icon'],
+                'six_days_after_time': datetime.datetime.fromtimestamp(results['daily'][6]['dt']),
+                'six_days_after_temperature': results['daily'][6]['temp']['day'],
+                'six_days_after_weather_img': results['daily'][6]['weather'][0]['icon'],
+                'seven_days_after_time': datetime.datetime.fromtimestamp(results['daily'][7]['dt']),
+                'seven_days_after_temperature': results['daily'][7]['temp']['day'],
+                'seven_days_after_weather_img': results['daily'][7]['weather'][0]['icon'],
             }
-        return render_template('weather.html', data=data)
+        return render_template('weather.html', data=data, results=results)
     except urllib.error.HTTPError as e:
         message = "天気情報取得中にエラーが発生しました。"
         print(e)
