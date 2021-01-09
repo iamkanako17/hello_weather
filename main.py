@@ -32,16 +32,17 @@ def weather():
             results = json.loads(body)
             hourly_weather = results['hourly'][1:5]
             daily_weather = results['daily'][1:8]
+            current_time = results['current']['dt']
+            # 'now_time = datetime.datetime.fromtimestamp(results['current']['dt']),
             data = {
                 'timezone': results['timezone'],
-                'now_time': datetime.datetime.fromtimestamp(results['current']['dt']),
                 'now_temperature': results['current']['temp'],
                 'now_weather': results['current']['weather'][0]['description'],
                 'now_humidity': results['current']['humidity'],
                 'now_wind': results['current']['wind_speed'],
                 'now_weather_img': results['current']['weather'][0]['icon']
             }
-        return render_template('weather.html', data=data, daily_weather=daily_weather, hourly_weather=hourly_weather)
+        return render_template('weather.html', data=data, daily_weather=daily_weather, hourly_weather=hourly_weather, current_time=current_time)
     except urllib.error.HTTPError as e:
         message = "天気情報取得中にエラーが発生しました。"
         print(e)
@@ -65,12 +66,19 @@ environment.filters['format_date'] = format_date
 
 
 @app.template_filter('format_hour')
-def format_hour(hourly_weather, format='%H:%M'):
+def format_hour(hourly_weather, format="%H:%M"):
     return datetime.datetime.fromtimestamp(hourly_weather).strftime(format)
 
 
 environment.filters['format_hour'] = format_hour
 
+
+@app.template_filter('format_current_time')
+def format_current_time(current_time, format="%m/%d(%a) %H:%M"):
+    return datetime.datetime.fromtimestamp(current_time).strftime(format)
+
+
+environment.filters['format_current_time'] = format_current_time
 
 if __name__ == "__main__":
     app.run(debug=True)
