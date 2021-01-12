@@ -3,7 +3,7 @@
 <h1>{{ data.timezone }}</h1>
 
 <div class="now_time">
-    <h5>日時:{{ current_time | format_current_time }}</h5>
+    <h5>日時:{{ current_time | format_date('%m/%d(%a) %H:%M') }}</h5>
     <h5>天候:{{ data.now_weather }}</h5>
     <h5>只今の気温:{{ data.now_temperature }}℃</h5>
     <h5>只今の湿度: {{ data.now_humidity }}%</h5>
@@ -26,7 +26,7 @@
             {% set hourly_wind = i['wind_speed'] %}
             {% set hourly_weather_img = i['weather'][0]['icon'] %}
             <li>
-                {{ hourly_time | format_hour }}</br>
+                {{ hourly_time | format_date('%H:%M') }}</br>
                 気温:{{ hourly_temperature }}℃
                 天候:{{ hourly_description }}
                 降水確率:{{ hourly_of_rain }} %
@@ -46,7 +46,7 @@
             {% set daily_temperature = i['temp']['day'] %}
             {% set daily_weather_img = i['weather'][0]['icon'] %}
             <li>
-                {{ daily_date | format_date }}
+                {{ daily_date | format_date('%m/%d(%a)') }}
                 気温:{{ daily_temperature }}℃
                 <img src="http://openweathermap.org/img/wn/{{ daily_weather_img }}@2x.png"></img>
             </li>

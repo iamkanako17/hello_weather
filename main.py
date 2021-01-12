@@ -7,8 +7,6 @@ import json
 import urllib.parse
 import os
 import datetime
-import re
-import jinja2
 
 
 app = Flask(__name__)
@@ -33,7 +31,6 @@ def weather():
             hourly_weather = results['hourly'][1:5]
             daily_weather = results['daily'][1:8]
             current_time = results['current']['dt']
-            # 'now_time = datetime.datetime.fromtimestamp(results['current']['dt']),
             data = {
                 'timezone': results['timezone'],
                 'now_temperature': results['current']['temp'],
@@ -53,32 +50,10 @@ def weather():
         return render_template('error.html', message=message)
 
 
-loader = jinja2.FileSystemLoader('/templates')
-environment = jinja2.Environment(autoescape=True, loader=loader)
-
-
 @app.template_filter('format_date')
-def format_date(daily_weather, format="%m/%d(%a)"):
-    return datetime.datetime.fromtimestamp(daily_weather).strftime(format)
+def format_date(value, format="%m/%d(%a) %H:%M"):
+    return datetime.datetime.fromtimestamp(value).strftime(format)
 
-
-environment.filters['format_date'] = format_date
-
-
-@app.template_filter('format_hour')
-def format_hour(hourly_weather, format="%H:%M"):
-    return datetime.datetime.fromtimestamp(hourly_weather).strftime(format)
-
-
-environment.filters['format_hour'] = format_hour
-
-
-@app.template_filter('format_current_time')
-def format_current_time(current_time, format="%m/%d(%a) %H:%M"):
-    return datetime.datetime.fromtimestamp(current_time).strftime(format)
-
-
-environment.filters['format_current_time'] = format_current_time
 
 if __name__ == "__main__":
     app.run(debug=True)
