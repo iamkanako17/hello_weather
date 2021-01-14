@@ -3,9 +3,9 @@
 <h1>{{ data.timezone }}</h1>
 
 <div class="now_time">
-    <h5>時刻：{{ data.now_time }}</h5>
-    <h5>天候：{{ data.now_weather }}</h5>
-    <h5>只今の気温: {{ data.now_temperature }}℃</h5>
+    <h5>日時:{{ current_time | format_date('%m/%d(%a) %H:%M') }}</h5>
+    <h5>天候:{{ data.now_weather }}</h5>
+    <h5>只今の気温:{{ data.now_temperature }}℃</h5>
     <h5>只今の湿度: {{ data.now_humidity }}%</h5>
     <h5>只今の風速: {{ data.now_wind }}m/秒</h5>
 
@@ -14,49 +14,45 @@
     </p>
 </div>
   
-<div class="1hour_later">
-    <p>{{ data.one_hour_later_time }} 気温: {{ data.one_hour_later_temp }}℃</p>
-    <p>天気：{{data.one_hour_later_description }}</p>
-    <p>降水確率：{{ data.probability_of_rain_1}} %</p>
-    <p>湿度：{{ data.one_hour_later_humidity}}%</p>
-    <p>風速：{{ data.one_hour_later_wind}}m/秒</p>
-    <p>
-        <img src="http://openweathermap.org/img/wn/{{ data.one_hour_later_image }}@2x.png"></img>
-    </p>
+<h3>１時間ごとの天気</h3>
+<div class="hourly">
+    <ul style="list-style: none">
+        {% for i in hourly_weather %}
+            {% set hourly_time = i['dt'] %}
+            {% set hourly_temperature = i['temp'] %}
+            {% set hourly_description = i['weather'][0]['description'] %}
+            {% set hourly_of_rain = i['pop'] %}
+            {% set hourly_humidity = i['humidity'] %}
+            {% set hourly_wind = i['wind_speed'] %}
+            {% set hourly_weather_img = i['weather'][0]['icon'] %}
+            <li>
+                {{ hourly_time | format_date('%H:%M') }}</br>
+                気温:{{ hourly_temperature }}℃
+                天候:{{ hourly_description }}
+                降水確率:{{ hourly_of_rain }} %
+                湿度:{{ hourly_humidity }}%
+                風速:{{ hourly_wind }}m/秒
+                <img src="http://openweathermap.org/img/wn/{{ hourly_weather_img }}@2x.png"></img>
+            </li>
+        {% endfor %}
+    </ul>
 </div>
 
-<div class="2hours_later">
-    <p>{{ data.two_hour_later_time }} 気温: {{ data.two_hour_later_temp }}℃</p>
-    <p>天気：{{data.two_hour_later_description }}</p>
-    <p>降水確率：{{ data.probability_of_rain_2}} %</p>
-    <p>湿度：{{ data.two_hour_later_humidity}}%</p>
-    <p>風速：{{ data.one_hour_later_wind}}m/秒</p>
-    <p>
-        <img src="http://openweathermap.org/img/wn/{{ data.two_hour_later_image }}@2x.png"></img>
-    </p>
+<h3>週間天気</h3>
+<div class="daily">
+    <ul style="list-style: none">
+        {% for i in daily_weather %}
+            {% set daily_date = i['dt'] %}
+            {% set daily_temperature = i['temp']['day'] %}
+            {% set daily_weather_img = i['weather'][0]['icon'] %}
+            <li>
+                {{ daily_date | format_date('%m/%d(%a)') }}
+                気温:{{ daily_temperature }}℃
+                <img src="http://openweathermap.org/img/wn/{{ daily_weather_img }}@2x.png"></img>
+            </li>
+        {% endfor %}
+    </ul>
 </div>
 
-<div class="3hours_later">
-    <p>{{ data.three_hour_later_time }} 気温: {{ data.three_hour_later_temp }}℃</p>
-    <p>天気：{{data.three_hour_later_description }}</p>
-    <p>降水確率：{{ data.probability_of_rain_3}} %</p>
-    <p>湿度：{{ data.three_hour_later_humidity}}%</p>
-    <p>風速：{{ data.one_hour_later_wind}}m/秒</p>
-    <p>
-        <img src="http://openweathermap.org/img/wn/{{ data.three_hour_later_image }}@2x.png"></img>
-    </p>
-</div>
-
-<div class="4hours_later">
-    <p>{{ data.four_hour_later_time }} 気温: {{ data.four_hour_later_temp }}℃</p>
-    <p>天気：{{data.four_hour_later_description }}</p>
-    <p>降水確率：{{ data.probability_of_rain_4}} %</p>
-    <p>湿度：{{ data.four_hour_later_humidity}}%</p>
-    <p>風速：{{ data.one_hour_later_wind}}m/秒</p>
-    <p>
-        <img src="http://openweathermap.org/img/wn/{{ data.four_hour_later_image }}@2x.png"></img>
-    </p>
-</div>
-
+<p>{{ results }}</p>
 {% endblock %}
-
