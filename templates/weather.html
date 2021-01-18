@@ -1,30 +1,30 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1>{{ data.timezone }}</h1>
+<h1>{{ weather.timezone }}</h1>
 
 <div class="now_time">
-    <h5>日時:{{ current_time | format_date('%m/%d(%a) %H:%M') }}</h5>
-    <h5>天候:{{ data.now_weather }}</h5>
-    <h5>只今の気温:{{ data.now_temperature }}℃</h5>
-    <h5>只今の湿度: {{ data.now_humidity }}%</h5>
-    <h5>只今の風速: {{ data.now_wind }}m/秒</h5>
+    <h5>日時:{{ weather.current_time | format_date('%m/%d(%a) %H:%M') }}</h5>
+    <h5>天候:{{ weather.now_weather }}</h5>
+    <h5>只今の気温:{{ weather.now_temperature }}℃</h5>
+    <h5>只今の湿度: {{ weather.now_humidity }}%</h5>
+    <h5>只今の風速: {{ weather.now_wind }}m/秒</h5>
 
     <p>
-        <img src="http://openweathermap.org/img/wn/{{ data.now_weather_img }}@2x.png"></img>
+        <img src="http://openweathermap.org/img/wn/{{ weather.now_weather_img }}@2x.png"></img>
     </p>
 </div>
   
 <h3>１時間ごとの天気</h3>
 <div class="hourly">
     <ul style="list-style: none">
-        {% for i in hourly_weather %}
-            {% set hourly_time = i['dt'] %}
-            {% set hourly_temperature = i['temp'] %}
-            {% set hourly_description = i['weather'][0]['description'] %}
-            {% set hourly_of_rain = i['pop'] %}
-            {% set hourly_humidity = i['humidity'] %}
-            {% set hourly_wind = i['wind_speed'] %}
-            {% set hourly_weather_img = i['weather'][0]['icon'] %}
+        {% for hw in weather.hourly_weather %}
+            {% set hourly_time = hw['dt'] %}
+            {% set hourly_temperature = hw['temp'] %}
+            {% set hourly_description = hw['weather'][0]['description'] %}
+            {% set hourly_of_rain = hw['pop'] %}
+            {% set hourly_humidity = hw['humidity'] %}
+            {% set hourly_wind = hw['wind_speed'] %}
+            {% set hourly_weather_img = hw['weather'][0]['icon'] %}
             <li>
                 {{ hourly_time | format_date('%H:%M') }}</br>
                 気温:{{ hourly_temperature }}℃
@@ -41,10 +41,10 @@
 <h3>週間天気</h3>
 <div class="daily">
     <ul style="list-style: none">
-        {% for i in daily_weather %}
-            {% set daily_date = i['dt'] %}
-            {% set daily_temperature = i['temp']['day'] %}
-            {% set daily_weather_img = i['weather'][0]['icon'] %}
+        {% for dw in weather.daily_weather %}
+            {% set daily_date = dw['dt'] %}
+            {% set daily_temperature = dw['temp']['day'] %}
+            {% set daily_weather_img = dw['weather'][0]['icon'] %}
             <li>
                 {{ daily_date | format_date('%m/%d(%a)') }}
                 気温:{{ daily_temperature }}℃
@@ -54,5 +54,4 @@
     </ul>
 </div>
 
-<p>{{ results }}</p>
 {% endblock %}
