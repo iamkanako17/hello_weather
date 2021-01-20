@@ -2,7 +2,7 @@
 {% block content %}
 
 <div class="current container mx-auto text-center">
-    <i class="fas fa-map-marker-alt" style="font-size: 3rem; margin-top: 8rem;">
+    <i class="fas fa-map-marker-alt" style="font-size: 3rem; margin-top: 7rem;">
         <h1>{{ weather.timezone }}</h1>
     </i>
     <div class="card-body">
@@ -11,18 +11,18 @@
             <img src="http://openweathermap.org/img/wn/{{ weather.now_weather_img }}@2x.png"></img>
         </p>
         <h5 class="card-title">{{ weather.now_weather }}</h5>
-        <h5>現在の気温:{{ weather.now_temperature }}℃</h5>
+        <h5>現在の気温:{{ weather.now_temperature | round | int }}℃</h5>
         <h5>湿度: {{ weather.now_humidity }}%</h5>
-        <h5>風速: {{ weather.now_wind }}m/秒</h5>
+        <h5>風速: {{ weather.now_wind | round(1, 'ceil') }}m/秒</h5>
     </div>
 
 </div>
-  
-<div class="hourly container">
-    <h3 class="text-center" style="margin-top: 8rem; font-size: 2rem; font-weight: bolder;">
-        １時間ごとの天気
-    </h3>
-    <ul class="card col-7 mx-auto" style="list-style: none; padding: 0rem;">
+
+<h3 class="text-center" style="margin: 8rem 0 2rem; font-size: 2rem; font-weight: bolder;">
+    １時間ごとの天気
+</h3>
+<div class="hourly container-fluid text-center" style="margin: 0; padding: 0;">
+    <div class="row col-xl-12 mx-auto" style="margin: 0; padding: 0;">
         {% for hw in weather.hourly_weather %}
             {% set hourly_time = hw['dt'] %}
             {% set hourly_temperature = hw['temp'] %}
@@ -31,41 +31,47 @@
             {% set hourly_humidity = hw['humidity'] %}
             {% set hourly_wind = hw['wind_speed'] %}
             {% set hourly_weather_img = hw['weather'][0]['icon'] %}
-            <h3 class="card-header text-center" style="font-size: 1.5rem;">
-                {{ hourly_time | format_date('%H:%M') }}
-            </h3>
-            <div class="col-sm-12 card-body text-center" style="font-size: 1.25rem;">
-                <img src="http://openweathermap.org/img/wn/{{ hourly_weather_img }}@2x.png"></img>
-                <li class="card-title">{{ hourly_description }}</li>
-                <li class="card-title">気温:{{ hourly_temperature }}℃</li>
-                <li class="card-text">降水確率:{{ hourly_of_rain }} %</li>
-                <li class="card-text">湿度:{{ hourly_humidity }}%</li>
-                <li class="card-text">風速:{{ hourly_wind }}m/秒</li>
+
+            <div class="card col-xl-2 mx-auto" style="padding: 0; margin: 0.3rem 0.2rem;">
+                <h3 class="card-header" style="font-size: 1.5rem;">
+                    {{ hourly_time | format_date('%H:%M') }}
+                </h3>
+                <div class="card-body" style="font-size: 1.25rem;">
+                    <img src="http://openweathermap.org/img/wn/{{ hourly_weather_img }}@2x.png"></img>
+                    <p class="card-title">{{ hourly_description }}</p>
+                    <p class="card-title">気温:{{ hourly_temperature | round | int }}℃</p>
+                    <p class="card-text">降水確率:{{ hourly_of_rain | round | int }} %</p>
+                    <p class="card-text">湿度:{{ hourly_humidity }}%</p>
+                    <p class="card-text">風速:{{ hourly_wind | round(1, 'ceil') }}m/秒</p>
+                </div>
             </div>
         {% endfor %}
-    </ul>
+    </div>
 </div>
 
-<div class="daily container text-center">
-    <h3 class="text-center" style="margin-top: 8rem; font-size: 2rem; font-weight: bolder;">
-        週間天気
-    </h3>
-    <ul class="card col-7 mx-auto" style="list-style: none; padding: 0rem;">
+<h3 class="text-center" style="margin-top: 8rem; font-size: 2rem; font-weight: bolder;">
+    週間天気
+</h3>
+<div class="daily container-fluid text-center">
+    <div class="row col-lg-12 mx-auto" style="margin: 0; padding: 0rem;">
         {% for dw in weather.daily_weather %}
             {% set daily_date = dw['dt'] %}
             {% set daily_temperature = dw['temp']['day'] %}
             {% set daily_weather_img = dw['weather'][0]['icon'] %}
-            <li class="card-header" style="font-size: 1.5rem;">
-                {{ daily_date | format_date('%m/%d(%a)') }}
-            </li>
-            <div class="card-body">
-                <img src="http://openweathermap.org/img/wn/{{ daily_weather_img }}@2x.png"></img>
-                <li class="card-title text-center" style="font-size: 1.25rem;">
-                    日中気温:{{ daily_temperature }}℃
-                </li>
-            </div>  
+
+            <div class="card col-lg-3 mx-auto" style="padding: 0; margin: 0.3rem 0.2rem;">
+                <p class="card-header" style="font-size: 1.5rem;">
+                    {{ daily_date | format_date('%m/%d(%a)') }}
+                </p>
+                <div class="card-body">
+                    <img src="http://openweathermap.org/img/wn/{{ daily_weather_img }}@2x.png"></img>
+                    <p class="card-title text-center" style="font-size: 1.25rem;">
+                        日中気温:{{ daily_temperature | int }}℃
+                    </p>
+                </div>
+            </div>
         {% endfor %}
-    </ul>
+    </div>
 </div>
 
 {% endblock %}
