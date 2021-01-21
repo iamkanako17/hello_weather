@@ -32,10 +32,10 @@
       <div class="card-body" style="font-size: 1.25rem">
         <img src="http://openweathermap.org/img/wn/{{ hourly_weather_img }}@2x.png" />
         <p class="card-title">{{ hourly_description }}</p>
-        <p class="card-title">気温:{{ hourly_temperature }}℃</p>
-        <p class="card-text">降水確率:{{ hourly_of_rain | round(1, 'ceil') }} %</p>
+        <p class="card-title">気温:{{ hourly_temperature | round(0, 'ceil')}}℃</p>
+        <p class="card-text">降水確率:{{ hourly_of_rain | round(0, 'ceil') }} %</p>
         <p class="card-text">湿度:{{ hourly_humidity }}%</p>
-        <p class="card-text">風速:{{ hourly_wind | round(1, 'ceil') }}m/秒</p>
+        <p class="card-text">風速:{{ hourly_wind | round(0, 'ceil') }}m/秒</p>
       </div>
     </div>
     {% endfor %}
@@ -54,7 +54,7 @@
       <div class="card-body">
         <img src="http://openweathermap.org/img/wn/{{ daily_weather_img }}@2x.png" />
         <p class="card-title text-center" style="font-size: 1.25rem">
-          気温:{{ daily_temperature | int }}℃
+          気温:{{ daily_temperature | round(0, 'ceil') }}℃
         </p>
       </div>
     </div>
